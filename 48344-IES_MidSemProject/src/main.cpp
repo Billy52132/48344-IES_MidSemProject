@@ -194,7 +194,7 @@ int main(void)
             */
             // Auto Mode
 
-            if (Distance < 20.0f) // threshold as needed 
+            if (Distance > 0 && Distance < 20.0f)  // Only beep if sensor gives valid reading
             {
                 //theres a pedestrian 
                 if (led_Mode !=2) {
@@ -230,7 +230,7 @@ int main(void)
               - If object detected, force red + beep 
               - Otherwise LED changes only when user presses INT0
             */
-            if (Distance < 20.0f)
+            if (Distance > 0 && Distance < 20.0f)  // Only beep if sensor gives valid reading
             {
                 led_Mode = 2; 
                 isRedExtended = true; 
@@ -649,7 +649,7 @@ void beepAlarm(float distance)
 if (distance<1.0f) distance =1.0f; //clamp 
 if (distance > 20.0f) distance = 20.0f; 
 // MAP 1...20 --> beep period 200...2000 us (example) 
-float beepPeriod = 200 + (distance-1.0f) * (1800.0f / (19.0f)); 
+float beepPeriod = 2000 - (distance - 1.0f) * (1800.0f / 19.0f);
 //We'll beep - 100ms total 
 int cycles = (int)(100000.0 / (beepPeriod * 2 )); 
  for (int i = 0; i < cycles; i++)
